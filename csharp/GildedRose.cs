@@ -4,6 +4,14 @@ namespace csharp
 {
     public class GildedRose
     {
+        private const string Sulfuras = "Sulfuras, Hand of Ragnaros";
+        private const string BackStage = "Backstage passes to a TAFKAL80ETC concert";
+        private const string Brie = "Aged Brie";
+        private const int MaxQuality = 50;
+        private const int MinQuality = 0;
+        private const int BackStagePassFirstValueIncrease = 10;
+        private const int BackStagePassSecondValueIncrease = 5;
+
         private IList<Item> Items;
         public GildedRose(IList<Item> items)
         {
@@ -21,7 +29,7 @@ namespace csharp
         private void UpdateIndividualItem(Item item)
         {
             //Sulfuras never changes
-            if (item.Name == "Sulfuras, Hand of Ragnaros")
+            if (item.Name == Sulfuras)
             {
                 return;
             }
@@ -32,18 +40,6 @@ namespace csharp
             if (item.SellIn < 0)
             {
                 UpdateItemQualityPastSellBy(item);
-            }
-        }
-
-        private void UpdateItemQualityPastSellBy(Item item)
-        {
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
-            {
-                item.Quality = 0;
-            }
-            else
-            {
-                UpdateItemQuality(item);
             }
         }
 
@@ -58,12 +54,12 @@ namespace csharp
             {
                 ReduceQuality(item);
             }
-            if (item.Name == "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name == BackStage)
             {
                 BackStagePassIncreaseQuality(item);
             }
 
-            if (item.Name != "Aged Brie" && item.Name != "Backstage passes to a TAFKAL80ETC concert")
+            if (item.Name != Brie && item.Name != BackStage)
             {
                 ReduceQuality(item);
             }
@@ -73,9 +69,21 @@ namespace csharp
             }
         }
 
+        private void UpdateItemQualityPastSellBy(Item item)
+        {
+            if (item.Name == BackStage)
+            {
+                item.Quality = MinQuality;
+            }
+            else
+            {
+                UpdateItemQuality(item);
+            }
+        }
+
         private void IncreaseQuality(Item item)
         {
-            if (item.Quality >= 50)
+            if (item.Quality >= MaxQuality)
             {
                 return;
             }
@@ -85,26 +93,23 @@ namespace csharp
 
         private void BackStagePassIncreaseQuality(Item item)
         {
-            if (item.SellIn < 11)
+            if (item.SellIn <=BackStagePassFirstValueIncrease)
             {
                 IncreaseQuality(item);
-
             }
 
-            if (item.SellIn < 6)
+            if (item.SellIn <= BackStagePassSecondValueIncrease)
             {
                 IncreaseQuality(item);
-
             }
         }
 
         private void ReduceQuality(Item item)
         {
-            if (item.Quality > 0)
+            if (item.Quality > MinQuality)
             {
                 item.Quality--;
             }
         }
-        
     }
 }

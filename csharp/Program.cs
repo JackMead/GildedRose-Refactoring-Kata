@@ -42,11 +42,11 @@ namespace csharp
 
             for (var i = 0; i < 31; i++)
             {
-                Console.WriteLine("------------- day " + i + " ----------------");
-                Console.WriteLine("{0,50}{1,10}{2,10}","name", "sellIn", "quality");
+                Console.WriteLine("-------------------------------------- day " + i + " --------------------------------------");
+                Console.WriteLine("{0,-50}{1,10}{2,10}","Name", "Sell In", "Quality");
                 for (var j = 0; j < Items.Count; j++)
                 {
-                    System.Console.WriteLine("{0,50}{1,10}{2,10}",
+                    System.Console.WriteLine("{0,-50}{1,10}{2,10}",
                         Items[j].Name,Items[j].SellIn,Items[j].Quality);
                 }
                 Console.WriteLine("");
