@@ -50,7 +50,7 @@ namespace csharp
                         Items[j].Name,Items[j].SellIn,Items[j].Quality);
                 }
                 Console.WriteLine("");
-                app.UpdateQuality();
+                app.UpdateAllItems();
             }
         }
     }
